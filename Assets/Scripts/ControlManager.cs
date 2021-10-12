@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Cinemachine;
 public class ControlManager : MonoBehaviour
 {
     public static ControlManager instance { private set; get; }
@@ -8,6 +9,7 @@ public class ControlManager : MonoBehaviour
     public static changeControlUnitEvent changeControlUnit;
     public ControlUnit controlNowUnit;
     public InputKey inputKey;
+    public CinemachineVirtualCamera cineMachine;
     private void Awake()
     {
         if (instance == null)
@@ -34,6 +36,7 @@ public class ControlManager : MonoBehaviour
     private void changeControlNowUnit(ControlUnit controlUnit)
     {
         this.controlNowUnit = controlUnit;
+        this.cineMachine.Follow = controlUnit.transform;
     }
     private void GetInput()
     {
