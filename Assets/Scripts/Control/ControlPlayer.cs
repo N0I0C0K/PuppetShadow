@@ -19,10 +19,13 @@ class ControlPlayer : ControlUnit
     }
     public override void execute(InputKey inputKey)
     {
-        rigidBody.velocity = new Vector2(inputKey.horizontalRaw * speed * Time.deltaTime, rigidBody.velocity.y);
+        rigidBody.velocity = new Vector2(inputKey.horizontalRaw * speed, rigidBody.velocity.y);
+        if (Mathf.Abs(rigidBody.velocity.x) > speed)
+        {
+            Debug.LogError("speed error");
+        }
         if (inputKey.keyJump)
         {
-
             if (col.IsTouchingLayers(layer))
             {
                 this.jumpTimes = 0;
@@ -31,7 +34,6 @@ class ControlPlayer : ControlUnit
             {
                 rigidBody.velocity = new Vector2(rigidBody.velocity.x, jumpForce);
                 jumpTimes++;
-                Debug.Log(string.Format("{0} {1}:{2}", jumpTimes, jumpForce, rigidBody.velocity.y));
             }
         }
     }
