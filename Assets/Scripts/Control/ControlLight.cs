@@ -17,8 +17,9 @@ public class ControlLight : MonoBehaviour
     private float horizontalRaw, verticalRaw, lightZoom;
     private bool keyReSet = false;
     private float innerRadius;
-    private float outerRatio = 3f;
+    private float outerRatio;
     private float intensity;
+    private float initialZ;
     public delegate void lightOffsetChangeEvent(Vector3 offset);
     public static lightOffsetChangeEvent onLightOffsetChange;
     private void Start()
@@ -32,7 +33,9 @@ public class ControlLight : MonoBehaviour
         if (globalLight == null)
             Debug.LogError("global can not be null");
         this.innerRadius = light2D.pointLightInnerRadius;
+        this.outerRatio = light2D.pointLightOuterRadius / this.innerRadius;
         this.intensity = light2D.intensity;
+        this.initialZ = this.transform.position.z;
     }
     private void Update()
     {
@@ -45,17 +48,16 @@ public class ControlLight : MonoBehaviour
     /// </summary>
     private void effectProess()
     {
-        if (canZoom(offsetPos))
-        {
-            light2D.pointLightInnerRadius = this.innerRadius - offsetPos.z / 2;
-            light2D.pointLightOuterRadius = light2D.pointLightInnerRadius * (this.outerRatio + this.outerRatio / (10 - offsetPos.z));
-            light2D.intensity = this.intensity - offsetPos.z / 10;
-
-        }
+        Vector3 pos = this.transform.position;
+        light2D.pointLightInnerRadius = this.innerRadius * (pos.z / initialZ);
+        light2D.pointLightOuterRadius = light2D.pointLightInnerRadius * ((outerRatio - 1) * pos.z / initialZ + 1);
+        light2D.intensity = this.intensity / (pos.z * pos.z);
+        globalLight.intensity = light2D.intensity * 0.7f;
     }
     private bool canZoom(Vector3 pos)
     {
-        return this.innerRadius - pos.z / 2 >= 0.5 && this.innerRadius - pos.z / 2 <= this.innerRadius;
+        float tarInner = this.innerRadius * ((pos.z + this.transform.position.z) / initialZ);
+        return tarInner > 0.5 && tarInner < 7;
     }
     private void handleInput()
     {
@@ -67,9 +69,9 @@ public class ControlLight : MonoBehaviour
         if (tempOffsetPos != offsetPos && canZoom(tempOffsetPos))
         {
             offsetPos = tempOffsetPos;
-            onLightOffsetChange?.Invoke(this.offsetPos + new Vector3(0, 0, 1));
+            onLightOffsetChange?.Invoke(this.offsetPos + new Vector3(0, 0, this.initialZ));
         }
-        this.transform.position = Camera.main.transform.position + offsetPos + new Vector3(0, 0, 10);
+        this.transform.position = Camera.main.transform.position + offsetPos + new Vector3(0, 0, 10 + this.initialZ);
     }
     private void updateInputData()
     {

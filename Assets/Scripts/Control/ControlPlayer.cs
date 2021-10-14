@@ -20,10 +20,6 @@ class ControlPlayer : ControlUnit
     public override void execute(InputKey inputKey)
     {
         rigidBody.velocity = new Vector2(inputKey.horizontalRaw * speed, rigidBody.velocity.y);
-        if (Mathf.Abs(rigidBody.velocity.x) > speed)
-        {
-            Debug.LogError("speed error");
-        }
         if (inputKey.keyJump)
         {
             if (col.IsTouchingLayers(layer))
