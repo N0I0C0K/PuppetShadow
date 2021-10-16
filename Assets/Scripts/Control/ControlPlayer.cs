@@ -11,15 +11,21 @@ class ControlPlayer : ControlUnit
     public Collider2D col;
     public Rigidbody2D rigidBody;
     public LayerMask layer;
+    private Animator animator;
     private void Start()
     {
         rigidBody = GetComponent<Rigidbody2D>();
         if (col == null)
             col = GetComponent<Collider2D>();
+        animator = GetComponent<Animator>();
+        if (animator == null)
+            Debug.LogWarning("player has no animator");
     }
     public override void execute(InputKey inputKey)
     {
         rigidBody.velocity = new Vector2(inputKey.horizontalRaw * speed, rigidBody.velocity.y);
+        if (inputKey.horizontalRaw != 0)
+            this.transform.localScale = new Vector3(-inputKey.horizontalRaw, 1, 1);
         if (inputKey.keyJump)
         {
             if (col.IsTouchingLayers(layer))
@@ -31,6 +37,10 @@ class ControlPlayer : ControlUnit
                 rigidBody.velocity = new Vector2(rigidBody.velocity.x, jumpForce);
                 jumpTimes++;
             }
+        }
+        if (animator)
+        {
+            animator.SetFloat("speedX", Mathf.Abs(rigidBody.velocity.x));
         }
     }
 }

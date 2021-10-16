@@ -56,8 +56,8 @@ public class ControlLight : MonoBehaviour
     }
     private bool canZoom(Vector3 pos)
     {
-        float tarInner = this.innerRadius * ((pos.z + this.transform.position.z) / initialZ);
-        return tarInner > 0.5 && tarInner < 7;
+        float tarInner = this.innerRadius * ((pos.z + initialZ) / initialZ);
+        return tarInner >= 1.8 && tarInner <= 7;
     }
     private void handleInput()
     {
