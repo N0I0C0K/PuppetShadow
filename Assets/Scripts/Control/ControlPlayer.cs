@@ -12,6 +12,7 @@ class ControlPlayer : ControlUnit
     public Rigidbody2D rigidBody;
     public LayerMask layer;
     private Animator animator;
+    private Vector3 initialScale;
     private void Start()
     {
         rigidBody = GetComponent<Rigidbody2D>();
@@ -20,12 +21,15 @@ class ControlPlayer : ControlUnit
         animator = GetComponent<Animator>();
         if (animator == null)
             Debug.LogWarning("player has no animator");
+        initialScale = this.transform.localScale;
     }
     public override void execute(InputKey inputKey)
     {
         rigidBody.velocity = new Vector2(inputKey.horizontalRaw * speed, rigidBody.velocity.y);
         if (inputKey.horizontalRaw != 0)
-            this.transform.localScale = new Vector3(-inputKey.horizontalRaw, 1, 1);
+        {
+            this.transform.localScale = new Vector3(inputKey.horizontalRaw * initialScale.x, initialScale.y, initialScale.z);
+        }
         if (inputKey.keyJump)
         {
             if (col.IsTouchingLayers(layer))

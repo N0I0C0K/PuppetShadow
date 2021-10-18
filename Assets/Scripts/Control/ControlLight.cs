@@ -35,6 +35,8 @@ public class ControlLight : MonoBehaviour
         this.innerRadius = light2D.pointLightInnerRadius;
         this.outerRatio = light2D.pointLightOuterRadius / this.innerRadius;
         this.intensity = light2D.intensity;
+        if (this.transform.position.z == 0)
+            this.transform.position += new Vector3(0, 0, 1);
         this.initialZ = this.transform.position.z;
     }
     private void Update()
