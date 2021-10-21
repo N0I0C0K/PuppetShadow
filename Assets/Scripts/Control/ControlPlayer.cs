@@ -13,6 +13,10 @@ class ControlPlayer : ControlUnit
     public LayerMask layer;
     private Animator animator;
     private Vector3 initialScale;
+    private Vector3 initialPos;
+
+    public delegate void onPlayerDyingEvent();
+    public static onPlayerDyingEvent onPlayerDying;
     private void Start()
     {
         rigidBody = GetComponent<Rigidbody2D>();
@@ -22,6 +26,7 @@ class ControlPlayer : ControlUnit
         if (animator == null)
             Debug.LogWarning("player has no animator");
         initialScale = this.transform.localScale;
+        initialPos = this.transform.position;
     }
     public override void execute(InputKey inputKey)
     {
@@ -46,5 +51,12 @@ class ControlPlayer : ControlUnit
         {
             animator.SetFloat("speedX", Mathf.Abs(rigidBody.velocity.x));
         }
+    }
+    public override void onDying()
+    {
+        this.transform.position = this.initialPos + new Vector3(0, 10, 0);
+        this.rigidBody.velocity = new Vector2(0, 0);
+        this.isDead = false;
+        onPlayerDying?.Invoke();
     }
 }

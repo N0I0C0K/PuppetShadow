@@ -2,13 +2,16 @@ using UnityEngine;
 using System.Collections.Generic;
 class ShadowNomal : ShadowUnit
 {
-    private List<GameObject> colliders;
     //用来实现平台拖动物体
+    private List<GameObject> colliders;
     private float offsetX = 0;
+    private Renderer spriteRenderer;
+    public float rate = 1f;
     public override void Start()
     {
         base.Start();
         colliders = new List<GameObject>();
+        spriteRenderer = GetComponent<Renderer>();
     }
     private void OnCollisionEnter2D(Collision2D other)
     {
@@ -21,6 +24,7 @@ class ShadowNomal : ShadowUnit
     public override void execute(Vector3 lightOffsetPos)
     {
         offsetPos = new Vector3(-lightOffsetPos.x / lightOffsetPos.z, -lightOffsetPos.y / lightOffsetPos.z, 0);
+        offsetPos = offsetPos * rate;
         offsetX = offsetPos.x - this.transform.position.x + this.initialPos.x;
         foreach (var item in this.colliders)
         {
@@ -30,5 +34,6 @@ class ShadowNomal : ShadowUnit
         this.offsetScale = new Vector3(initialScale.x * k, initialScale.y * k, initialScale.z);
         this.transform.position = this.initialPos + this.offsetPos;
         this.transform.localScale = this.offsetScale;
+        spriteRenderer?.material.SetFloat("_Blur", k - 0.7f);
     }
 }

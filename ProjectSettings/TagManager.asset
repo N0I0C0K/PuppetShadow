@@ -42,6 +42,9 @@ TagManager:
   - name: background
     uniqueID: 2947269623
     locked: 0
+  - name: landScape
+    uniqueID: 813063325
+    locked: 0
   - name: shadow
     uniqueID: 123313187
     locked: 0

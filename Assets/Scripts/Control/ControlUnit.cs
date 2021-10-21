@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class ControlUnit : MonoBehaviour
 {
-    public bool isDead { get; private set; } = false;
+    public bool isDead { get; protected set; } = false;
     public ControlUnit()
     {
 

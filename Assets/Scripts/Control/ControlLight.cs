@@ -13,6 +13,7 @@ public class ControlLight : MonoBehaviour
     public Light2D globalLight;
     public float speed = 2.0f;
     public float zoomSpeed = 2.0f;
+    public CircleCollider2D movingRange;
     public Vector3 offsetPos = new Vector3(0, 0, 0);
     private float horizontalRaw, verticalRaw, lightZoom;
     private bool keyReSet = false;
@@ -38,6 +39,8 @@ public class ControlLight : MonoBehaviour
         if (this.transform.position.z == 0)
             this.transform.position += new Vector3(0, 0, 1);
         this.initialZ = this.transform.position.z;
+        ControlPlayer.onPlayerDying += this.reSetLight;
+        onLightOffsetChange?.Invoke(new Vector3(0, 0, initialZ));
     }
     private void Update()
     {
@@ -56,10 +59,19 @@ public class ControlLight : MonoBehaviour
         light2D.intensity = this.intensity / (pos.z * pos.z);
         globalLight.intensity = light2D.intensity * 0.7f;
     }
+    /// <summary>
+    /// 判断是否可以移动
+    /// </summary>
+    /// <param name="pos">pos指的是offset</param>
+    /// <returns></returns>
     private bool canZoom(Vector3 pos)
     {
         float tarInner = this.innerRadius * ((pos.z + initialZ) / initialZ);
-        return tarInner >= 1.8 && tarInner <= 7;
+        if (tarInner < 1.8 || tarInner > 7)
+            return false;
+        if (movingRange != null && pos.x * pos.x + pos.y * pos.y >= movingRange.radius * movingRange.radius)
+            return false;
+        return true;
     }
     private void handleInput()
     {
@@ -67,7 +79,10 @@ public class ControlLight : MonoBehaviour
         if (!this.keyReSet)
             tempOffsetPos += new Vector3(horizontalRaw * speed * Time.deltaTime, verticalRaw * speed * Time.deltaTime, lightZoom * zoomSpeed * Time.deltaTime);
         else
+        {
             tempOffsetPos = new Vector3(0, 0, 0);
+            keyReSet = false;
+        }
         if (tempOffsetPos != offsetPos && canZoom(tempOffsetPos))
         {
             offsetPos = tempOffsetPos;
@@ -75,11 +90,19 @@ public class ControlLight : MonoBehaviour
         }
         this.transform.position = Camera.main.transform.position + offsetPos + new Vector3(0, 0, 10 + this.initialZ);
     }
+    public void reSetLight()
+    {
+        keyReSet = true;
+    }
     private void updateInputData()
     {
         horizontalRaw = Input.GetAxisRaw("RightX");
         verticalRaw = Input.GetAxisRaw("RightY");
         lightZoom = Input.GetAxisRaw("LightZoom");
-        keyReSet = Input.GetKeyDown(KeyCode.RightAlt);
+        //keyReSet = Input.GetKeyDown(KeyCode.RightAlt);
+    }
+    private void OnDestroy()
+    {
+        ControlPlayer.onPlayerDying -= this.reSetLight;
     }
 }
