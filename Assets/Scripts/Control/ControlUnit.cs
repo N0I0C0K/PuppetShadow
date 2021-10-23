@@ -29,6 +29,6 @@ public class ControlUnit : MonoBehaviour
     }
     private void OnMouseDown()
     {
-        ControlManager.changeControlUnit(this);
+        MyGameManager.changeControlUnit(this);
     }
 }

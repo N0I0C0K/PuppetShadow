@@ -15,8 +15,8 @@ TagManager:
   - Ground
   - Shadow
   - Player
-  - 
-  - 
+  - Others
+  - ShadowCol
   - 
   - 
   - 
@@ -50,4 +50,7 @@ TagManager:
     locked: 0
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: stage
+    uniqueID: 2646728771
     locked: 0

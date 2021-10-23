@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 [RequireComponent(typeof(Rigidbody2D))]
 class ControlPlayer : ControlUnit
@@ -14,9 +15,13 @@ class ControlPlayer : ControlUnit
     private Animator animator;
     private Vector3 initialScale;
     private Vector3 initialPos;
-
+    public bool autoFocus = true;
     public delegate void onPlayerDyingEvent();
     public static onPlayerDyingEvent onPlayerDying;
+    private void Awake()
+    {
+        SceneManager.sceneLoaded += this.onSceneLoaded;
+    }
     private void Start()
     {
         rigidBody = GetComponent<Rigidbody2D>();
@@ -27,6 +32,11 @@ class ControlPlayer : ControlUnit
             Debug.LogWarning("player has no animator");
         initialScale = this.transform.localScale;
         initialPos = this.transform.position;
+    }
+    public void onSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        if (autoFocus)
+            MyGameManager.changeControlUnit(this);
     }
     public override void execute(InputKey inputKey)
     {
@@ -54,6 +64,7 @@ class ControlPlayer : ControlUnit
     }
     public override void onDying()
     {
+        Debug.Log("Player died");
         this.transform.position = this.initialPos + new Vector3(0, 10, 0);
         this.rigidBody.velocity = new Vector2(0, 0);
         this.isDead = false;

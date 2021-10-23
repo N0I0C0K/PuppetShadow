@@ -8,7 +8,7 @@ public class ShadowUnit : MonoBehaviour
     protected Vector3 offsetScale = new Vector3(1, 1, 1);
     public virtual void Start()
     {
-        ControlLight.onLightOffsetChange += this.execute;
+        ControlLightUnit.onLightOffsetChange += this.execute;
         initialPos = this.transform.position;
         initialScale = this.transform.localScale;
     }
@@ -18,6 +18,6 @@ public class ShadowUnit : MonoBehaviour
     }
     private void OnDestroy()
     {
-        ControlLight.onLightOffsetChange -= this.execute;
+        ControlLightUnit.onLightOffsetChange -= this.execute;
     }
 }
