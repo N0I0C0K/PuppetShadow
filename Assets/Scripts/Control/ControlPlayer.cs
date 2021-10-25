@@ -17,7 +17,7 @@ class ControlPlayer : ControlUnit
     private Vector3 initialPos;
     public bool autoFocus = true;
     public delegate void onPlayerDyingEvent();
-    public static onPlayerDyingEvent onPlayerDying;
+    public static event onPlayerDyingEvent onPlayerDying;
     private void Awake()
     {
         SceneManager.sceneLoaded += this.onSceneLoaded;
