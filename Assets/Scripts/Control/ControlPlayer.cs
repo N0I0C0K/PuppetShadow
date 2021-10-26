@@ -11,10 +11,12 @@ class ControlPlayer : ControlUnit
     private int jumpTimes = 0;
     public Collider2D col;
     public Rigidbody2D rigidBody;
+    public AudioClip dieAudio;
     public LayerMask layer;
     private Animator animator;
     private Vector3 initialScale;
     private Vector3 initialPos;
+    private AudioSource audioSource;
     public bool autoFocus = true;
     public delegate void onPlayerDyingEvent();
     public static event onPlayerDyingEvent onPlayerDying;
@@ -30,6 +32,11 @@ class ControlPlayer : ControlUnit
         animator = GetComponent<Animator>();
         if (animator == null)
             Debug.LogWarning("player has no animator");
+        audioSource = GetComponent<AudioSource>();
+        if (audioSource == null)
+            Debug.LogWarning("player has no audio Source");
+        if (dieAudio == null)
+            Debug.LogWarning("player has no die audio");
         initialScale = this.transform.localScale;
         initialPos = this.transform.position;
     }
@@ -62,12 +69,22 @@ class ControlPlayer : ControlUnit
             animator.SetFloat("speedX", Mathf.Abs(rigidBody.velocity.x));
         }
     }
+    private void playSoundEffect()
+    {
+
+    }
     public override void onDying()
     {
         Debug.Log("Player died");
         this.transform.position = this.initialPos + new Vector3(0, 10, 0);
         this.rigidBody.velocity = new Vector2(0, 0);
         this.isDead = false;
+        if (audioSource != null)
+        {
+            audioSource.clip = this.dieAudio;
+            audioSource.loop = false;
+            audioSource.Play();
+        }
         onPlayerDying?.Invoke();
     }
 }

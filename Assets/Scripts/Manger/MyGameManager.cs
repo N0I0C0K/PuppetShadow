@@ -12,6 +12,7 @@ public class MyGameManager : MonoBehaviour
     public InputKey inputKey;
     public CinemachineVirtualCamera cineMachine;
     public Animator sceneAnimator;
+    public AudioSource bgmSource;
     private void Awake()
     {
         if (instance == null)
@@ -76,9 +77,25 @@ public class MyGameManager : MonoBehaviour
     {
         sceneAnimator = GameObject.Find("SceneLoadEffect")?.GetComponent<Animator>();
         cineMachine = GameObject.Find("CM vcam1")?.GetComponent<CinemachineVirtualCamera>();
+        bgmSource = GameObject.Find("BGM")?.GetComponent<AudioSource>();
         if (sceneAnimator == null)
             Debug.LogWarning(string.Format("{0} has no scene load aniamtor", scene.name));
         if (cineMachine == null)
             Debug.LogWarning(string.Format("{0} has no cineMachine", scene.name));
+        if (bgmSource == null)
+            Debug.LogWarning(string.Format("{0} has no BGM", scene.name));
+
+    }
+    public void playBGM()
+    {
+        bgmSource?.Play();
+    }
+    public void pauseBGM()
+    {
+        bgmSource?.Pause();
+    }
+    public void unpauseBGM()
+    {
+        bgmSource?.UnPause();
     }
 }
