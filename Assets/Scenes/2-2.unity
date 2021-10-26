@@ -134,6 +134,7 @@ GameObject:
   - component: {fileID: 44751796}
   - component: {fileID: 44751795}
   - component: {fileID: 44751794}
+  - component: {fileID: 44751797}
   m_Layer: 0
   m_Name: "\u5E55\u5E03"
   m_TagString: Untagged
@@ -232,6 +233,19 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 14
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &44751797
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 44751793}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e4c15c3f1f0ade04ea736faf04ead68f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  nextSceneName: 2=3
 --- !u!1 &228601009
 GameObject:
   m_ObjectHideFlags: 1
@@ -386,7 +400,7 @@ PolygonCollider2D:
   m_GameObject: {fileID: 256172444}
   m_Enabled: 1
   m_Density: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: cdb85cc65fc7b77409b0e16866538034, type: 2}
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
@@ -596,7 +610,7 @@ PrefabInstance:
       objectReference: {fileID: 977140537}
     - target: {fileID: 4076989137017079459, guid: 17b886515bc1d174ea97bbc0f7e83ece, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -32.527054
+      value: -32.52227
       objectReference: {fileID: 0}
     - target: {fileID: 4076989137017079459, guid: 17b886515bc1d174ea97bbc0f7e83ece, type: 3}
       propertyPath: m_LocalPosition.y
@@ -1050,7 +1064,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: -2413806693520163455, guid: ebe73ca9363db456bacf42c025bb4847, type: 3}
-  m_Color: {r: 0.5377358, g: 0.52176946, b: 0.4180135, a: 1}
+  m_Color: {r: 0.24528301, g: 0.23676752, b: 0.18141685, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -1362,7 +1376,7 @@ PolygonCollider2D:
   m_GameObject: {fileID: 1038559283}
   m_Enabled: 1
   m_Density: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: cdb85cc65fc7b77409b0e16866538034, type: 2}
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0

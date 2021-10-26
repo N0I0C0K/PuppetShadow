@@ -25,7 +25,7 @@ public class ControlUnit : MonoBehaviour
     }
     public virtual bool checkDeath()
     {
-        return this.transform.position.y <= -30;
+        return this.transform.position.y <= -50;
     }
     private void OnMouseDown()
     {

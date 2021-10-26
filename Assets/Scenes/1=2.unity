@@ -272,7 +272,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: "\u6070\u9022\u5308\u5974\u5357\u4E0B\uFF0C\u7687\u5E1D\u5C01\u5176\u5927\u5C06\u519B\uFF0C\u547D\u5176\u5317\u4E0A\u7834\u654C"
+  m_Text: "\u6070\u9022\u5308\u5974\u5357\u4E0B\uFF0C\u7687\u5E1D\u5C01\u5176\u8282\u5EA6\u4F7F\uFF0C\u547D\u5176\u5317\u4E0A\u7834\u654C"
 --- !u!222 &846671427
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -657,8 +657,7 @@ MonoBehaviour:
     height: 859
   selectedBlocks:
   - {fileID: 1139428104}
-  selectedCommands:
-  - {fileID: 1139428108}
+  selectedCommands: []
   variables: []
   description: 
   stepPause: 0

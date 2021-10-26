@@ -75,7 +75,10 @@ public class MyGameManager : MonoBehaviour
     public void onSceneLoaded(Scene scene, LoadSceneMode mode)
     {
         sceneAnimator = GameObject.Find("SceneLoadEffect")?.GetComponent<Animator>();
+        cineMachine = GameObject.Find("CM vcam1")?.GetComponent<CinemachineVirtualCamera>();
         if (sceneAnimator == null)
             Debug.LogWarning(string.Format("{0} has no scene load aniamtor", scene.name));
+        if (cineMachine == null)
+            Debug.LogWarning(string.Format("{0} has no cineMachine", scene.name));
     }
 }
