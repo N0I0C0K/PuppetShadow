@@ -13,6 +13,8 @@ public class MyGameManager : MonoBehaviour
     public CinemachineVirtualCamera cineMachine;
     public Animator sceneAnimator;
     public AudioSource bgmSource;
+    public bool isPause { get; private set; } = false;
+    public Canvas canvas;
     private void Awake()
     {
         if (instance == null)
@@ -36,8 +38,10 @@ public class MyGameManager : MonoBehaviour
     private void Update()
     {
         GetInput();
-        if (controlNowUnit != null)
+        if (controlNowUnit != null && !isPause)
             controlNowUnit.execute(this.inputKey);
+        if (Input.GetKeyDown(KeyCode.Escape))
+            menuIn();
     }
     public void changeControlNowUnit(ControlUnit controlUnit)
     {
@@ -97,5 +101,22 @@ public class MyGameManager : MonoBehaviour
     public void unpauseBGM()
     {
         bgmSource?.UnPause();
+    }
+    public void menuIn()
+    {
+        if (SceneManager.GetActiveScene().name == "Start")
+            return;
+        isPause = true;
+        canvas?.gameObject.SetActive(true);
+    }
+    public void backToStart()
+    {
+        canvas?.gameObject.SetActive(false);
+        this.changeScene("Start");
+    }
+    public void backToGame()
+    {
+        isPause = false;
+        canvas?.gameObject.SetActive(false);
     }
 }
