@@ -406,6 +406,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 180696587, guid: fb0f0b80063d2584eb2de614be651311, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 819304801, guid: fb0f0b80063d2584eb2de614be651311, type: 3}
       propertyPath: cineMachine
       value: 
@@ -461,6 +465,14 @@ PrefabInstance:
     - target: {fileID: 4449817288205322561, guid: fb0f0b80063d2584eb2de614be651311, type: 3}
       propertyPath: m_Name
       value: GameManager
+      objectReference: {fileID: 0}
+    - target: {fileID: 4586276723062439449, guid: fb0f0b80063d2584eb2de614be651311, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -168
+      objectReference: {fileID: 0}
+    - target: {fileID: 4586276723062439449, guid: fb0f0b80063d2584eb2de614be651311, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -14
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fb0f0b80063d2584eb2de614be651311, type: 3}

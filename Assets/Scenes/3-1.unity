@@ -842,7 +842,7 @@ MonoBehaviour:
   selectedBlocks:
   - {fileID: 393330758}
   selectedCommands:
-  - {fileID: 393330769}
+  - {fileID: 393330767}
   variables: []
   description: 
   stepPause: 0
@@ -1135,7 +1135,7 @@ MonoBehaviour:
   indentLevel: 0
   _duration:
     floatRef: {fileID: 0}
-    floatVal: 10
+    floatVal: 20
   durationOLD: 0
 --- !u!114 &393330768
 MonoBehaviour:
@@ -1191,7 +1191,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemId: 17
   indentLevel: 0
-  tarSceneName: Start
+  tarSceneName: end
 --- !u!1001 &411143479
 PrefabInstance:
   m_ObjectHideFlags: 0
